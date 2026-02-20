@@ -1,0 +1,96 @@
+erDiagram
+    USERS ||--o| USER_PREFERENCES : has
+    USERS ||--o{ SESSIONS : creates
+    SESSIONS ||--o{ TRANSCRIPTIONS : contains
+    SESSIONS ||--o{ AUDIO_CHUNKS : stores
+    SESSIONS ||--o{ VIDEO_FRAMES : captures
+    SESSIONS ||--o| SESSION_ANALYTICS : tracks
+    TRANSCRIPTIONS ||--o{ AUDIO_CHUNKS : references
+
+    USERS {
+        text id PK
+        varchar email
+        text apiKey
+        boolean hasValidKey
+        timestamp createdAt
+        timestamp updatedAt
+        timestamp lastActiveAt
+    }
+
+    USER_PREFERENCES {
+        text id PK
+        text userId FK
+        varchar defaultVoiceName
+        boolean defaultCameraEnabled
+        boolean defaultMicEnabled
+        timestamp createdAt
+        timestamp updatedAt
+    }
+
+    SESSIONS {
+        text id PK
+        text userId FK
+        enum status
+        varchar modelName
+        varchar voiceName
+        boolean isCameraEnabled
+        boolean isMicEnabled
+        text systemInstruction
+        timestamp startedAt
+        timestamp endedAt
+        text lastErrorMessage
+        decimal totalDurationSeconds
+        timestamp createdAt
+        timestamp updatedAt
+    }
+
+    TRANSCRIPTIONS {
+        text id PK
+        text sessionId FK
+        enum sender
+        text text
+        enum transcriptionType
+        integer sequenceNumber
+        timestamp timestamp
+        timestamp createdAt
+    }
+
+    AUDIO_CHUNKS {
+        text id PK
+        text sessionId FK
+        text transcriptionId FK
+        enum type
+        text audioData
+        varchar mimeType
+        decimal durationSeconds
+        integer sampleRate
+        integer sequenceNumber
+        timestamp timestamp
+        timestamp createdAt
+    }
+
+    VIDEO_FRAMES {
+        text id PK
+        text sessionId FK
+        text imageData
+        varchar mimeType
+        integer frameNumber
+        timestamp timestamp
+        timestamp createdAt
+    }
+
+    SESSION_ANALYTICS {
+        text id PK
+        text sessionId FK
+        integer totalMessages
+        integer userMessages
+        integer modelMessages
+        decimal totalAudioDurationSeconds
+        integer totalVideoFrames
+        decimal averageResponseTimeSeconds
+        integer interruptionCount
+        integer errorCount
+        jsonb metadata
+        timestamp createdAt
+        timestamp updatedAt
+    }

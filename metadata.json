@@ -1,0 +1,9 @@
+
+{
+  "name": "LiveMind",
+  "description": "A real-time multimodal reasoning companion that watches, listens, and reasons alongside you using the Gemini Live API.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
