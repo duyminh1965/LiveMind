@@ -238,7 +238,12 @@ const Live = () => {
             }
 
             // ... Audio Playback Logic (same as before) ...
-            const base64Audio = message.serverContent?.modelTurn?.parts[0]?.inlineData?.data;
+            const part = message.serverContent?.modelTurn?.parts?.find(
+              p => p.inlineData?.data
+            );
+            const baseA64 = message.serverContent?.modelTurn?.parts;
+            const base64Audio = part?.inlineData?.data;
+            //const base64Audio = message.serverContent?.modelTurn?.parts[0]?.inlineData?.data;
             if (base64Audio && audioContextOutRef.current) {
               nextStartTimeRef.current = Math.max(nextStartTimeRef.current, audioContextOutRef.current.currentTime);
               const audioBuffer = await decodeAudioData(
