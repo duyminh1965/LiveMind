@@ -70,7 +70,7 @@ const TranscriptionList: React.FC<TranscriptionListProps> = ({ history, currentI
               {entry.text}
             </div>
             <span className="text-[9px] text-slate-600 mt-1 px-1 font-medium">
-              {entry.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              {new Date(entry.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </span>
           </div>
         ))}
