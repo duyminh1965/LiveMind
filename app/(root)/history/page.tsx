@@ -1,10 +1,12 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Clock, Calendar, MessageSquare, User, Bot } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
-
+import { useSearchParams } from 'next/navigation'; 
+ 
 // Types matching DB schema
 interface SessionSummary {
   id: string;
